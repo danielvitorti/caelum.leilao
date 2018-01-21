@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
+using Caelum.Leilao;
+
 
 
 namespace Caelum.Leilao
@@ -16,7 +18,7 @@ namespace Caelum.Leilao
 	[TestFixture]
 	public class AvaliadorTest
 	{
-		public TesteDoAvaliador()
+		public AvaliadorTest()
 		{
 		}
 		
@@ -27,6 +29,7 @@ namespace Caelum.Leilao
 			Usuario joao = new Usuario("Joao");
 			Usuario jose = new Usuario("Jose");
 			Usuario maria = new Usuario("Maria");
+			
 			
 			Leilao leilao = new Leilao("Playstation 3 Novo");
 			
@@ -61,6 +64,7 @@ namespace Caelum.Leilao
 			Assert.AreEqual(menorEsperado,leiloeiro.Menorlance,0.0001);
 			
 			
+			
 			//Console.ReadKey();
 			
 			
@@ -68,9 +72,25 @@ namespace Caelum.Leilao
 		}
 		
 		[Test]
-		public void OutroCenario()
+		public void DeveCalcularAMedia()
 		{
-			
+			 // cenario: 3 lances em ordem crescente
+		        Usuario joao = new Usuario("Joao");
+		        Usuario jose = new Usuario("José");
+		        Usuario maria = new Usuario("Maria");
+		
+		        Leilao leilao = new Leilao("Playstation 3 Novo");
+		
+		        leilao.Propoe(new Lance(maria,300.0));
+		        leilao.Propoe(new Lance(joao,400.0));
+		        leilao.Propoe(new Lance(jose,500.0));
+		
+		        // executando a acao
+		        Avaliador leiloeiro = new Avaliador();
+		        leiloeiro.Avalia(leilao);
+		
+		        // comparando a saida com o esperado
+		        Assert.AreEqual(400, leiloeiro.Media, 0.0001);
 		}
 	}
 }

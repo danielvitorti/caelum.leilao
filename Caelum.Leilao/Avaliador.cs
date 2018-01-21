@@ -21,10 +21,10 @@ namespace Caelum.Leilao
 		
 		private double maiorDeTodos = Double.MinValue;
 		private double menorDeTodos = Double.MaxValue;
-		
-		public void Avalia(Leilao leilao)
+		private double media = 0;
+				public void Avalia(Leilao leilao)
 		{
-			
+			double total = 0;	
 			foreach( var lance in leilao.Lances)
 			{
 				
@@ -37,8 +37,11 @@ namespace Caelum.Leilao
 					menorDeTodos = lance.Valor;
 				}
 				
+				total = total + lance.Valor;
+				
 			}
 			
+			media = total/leilao.Lances.Count;
 		}
 		
 		
@@ -51,6 +54,13 @@ namespace Caelum.Leilao
 		{
 			
 			get{ return menorDeTodos;}
+		}
+		
+		public double Media
+		{
+			
+			get{ return media; }
+			
 		}
 		
 	}
